@@ -1,0 +1,15 @@
+.side-bar
+  .side-bar__user-name
+    .top-items
+      %p.top-items__name kozu
+      %ul.top-items__icons
+        %li.top-items__icons__new-group
+          = link_to "#" do
+            %i.fa.fa-edit
+        %li.top-items__icons__edit-user
+          = link_to "#" do
+            %i.fa.fa-cog
+  .side-bar__group-list
+    = link_to "#", class:"group" do
+      %p.group__group-name hhh
+      %p.group__latest-message まだメッセージがありません
