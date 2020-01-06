@@ -1,5 +1,5 @@
 @import "config/reset";
-@import "config/colors";
+@import "config/colors"; /*変数を使用するファイルより先*/
 @import "modules/messages";
 @import "font-awesome-sprockets";
 @import "./font-awesome";
