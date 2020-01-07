@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   #アソシエーション
+  has_many :messages
   has_many :groups, through: :group_users
   has_many :group_users
 end
