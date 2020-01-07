@@ -23,6 +23,7 @@
       %p.message__text hello
   .form
     %form.new-message{action: "#", method: "post"}
+    = form_for @
       .input-box
         %input.input-box__text{type: "text", placeholder: "type a message"}
         %label.input-box__image{for: "message-image"}

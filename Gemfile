@@ -54,3 +54,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'haml-rails'
 gem 'font-awesome-sass'
 gem 'devise'
+gem 'carrierwave' #画像をアップロードするために必要は機能を追加するためのgem
+gem 'mini_magick' #画像に対して処理を行うためのgem
