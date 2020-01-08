@@ -5,5 +5,10 @@ Rails.application.routes.draw do
   #usersコントローラにアクションを定義
   resources :users, only: [:edit, :update]
   #groupsコントローラにアクションを定義
-  resources :groups, only: [:new, :create, :edit, :update]
+  resources :groups, only: [:new, :create, :edit, :update] do
+    #groupにネストさせ、messagesコントローラにアクションを定義
+    resources :messages, only:[:index, :create]
+  end
+
 end
+
