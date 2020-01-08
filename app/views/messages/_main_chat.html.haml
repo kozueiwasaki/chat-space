@@ -1,35 +1,33 @@
 .chat-main
   .main-header
     .main-header__left-box
-      %h2.main-header__left-box__current-group text
+      %h2.main-header__left-box__current-group 
+        = @group.name
       %ul.main-header__left-box__member-list 
         Member：
-        %li.main-header__left-box__member-list__member kozu
-    = link_to "#", class:"main-header__edit-btn" do
+        - @group.users.each do |user|
+          = user.name
+    = link_to edit_group_path(@group), class:"main-header__edit-btn" do
       Edit
   .messages
-    .message
-      .message-info
-        %p.message-info__talker kozu
-        %p.message-info__date 2020/01/01(Wed) 10:00:00
-      %p.message__text hello
-      .message-info
-        %p.message-info__talker kozu
-        %p.message-info__date 2020/01/01(Wed) 10:00:00
-      %p.message__text hello
-      .message-info
-        %p.message-info__talker kozu
-        %p.message-info__date 2020/01/01(Wed) 10:00:00
-      %p.message__text hello
+    / 部分テンプレートの呼び出し。
+    / render partial: 'message', collection: @messages の省略形
+    / これは、①部分テンプレート名がインスタンス変数の単数形であること
+    / ②部分テンプレートで用いる変数名が同一である時 に使える
+    / - @messages.each do |message| これは処理速度が遅いやつ！
+    /   = render partial: "message", locals: {message: message}
+    = render @messages
   .form
-    %form.new-message{action: "#", method: "post"}
-    = form_for @
+    / @groupは、どのグループのメッセージとして保存したいのか
+    / @messageはMessageモデルのインスタンス
+    = form_for [@group, @message], html: { class: 'new-message'} do |f|
       .input-box
-        %input.input-box__text{type: "text", placeholder: "type a message"}
-        %label.input-box__image{for: "message-image"}
-          %i.fa.fa-image
-          %input.input-box__image__file{type: "file", id: "message-image"}
-      %input.submit-btn{type: "submit", value: "Send"}
+        / 保存先カラムはcontent
+        = f.text_field :content, class: "input-box__text", placeholder: 'type a message'
+        = f.label :image, class: 'input-box__image' do
+          = icon('fas', 'image', class: 'icon')
+          = f.file_field :image, class: 'input-box__image__file'
+      = f.submit 'send', class: 'submit-btn' 
 
 
 

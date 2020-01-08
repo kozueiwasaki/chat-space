@@ -12,8 +12,9 @@
             %i.fa.fa-cog
   .side-bar__group-list
     - current_user.groups.each do |group|
-      = link_to "#", class:"group" do
+      = link_to group_messages_path(group), class:"group" do
         .group__group-name 
           = group.name
         .group__latest-message 
-          まだメッセージはありません
+          = group.show_last_message
+          / モデルに定義したインスタンスメソッドを呼び出す
