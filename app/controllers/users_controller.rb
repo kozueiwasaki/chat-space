@@ -6,7 +6,7 @@ class UsersController < ApplicationController
     if current_user.update(user_params)
       redirect_to root_path
     else
-      render :edit #editのビューを再度呼び出す
+      render :edit
     end
   end
   private

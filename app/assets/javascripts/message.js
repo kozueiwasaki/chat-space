@@ -1,7 +1,5 @@
 $(function(){
-  // htmlを書き換えるメソッド
   function buildHTML(message){
-    // 画像が含まれているか否かで条件分岐
     if (message.image){
       var html = 
        `<div class = "message" data-message-id=${message.id}>
@@ -56,7 +54,6 @@ $(function(){
     .done(function(data){
       var html = buildHTML(data);
       $('.messages').append(html);
-      // scrollTop 指定した値の分だけスクロールする
       $('.messages').animate({ scrollTop: $('.messages')[0].scrollHeight});
       $('form')[0].reset();
       $('.submit-btn').prop('disabled', false);
