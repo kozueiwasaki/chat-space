@@ -10,19 +10,10 @@
     = link_to edit_group_path(@group), class:"main-header__edit-btn" do
       Edit
   .messages
-    / 部分テンプレートの呼び出し。
-    / render partial: 'message', collection: @messages の省略形
-    / これは、①部分テンプレート名がインスタンス変数の単数形であること
-    / ②部分テンプレートで用いる変数名が同一である時 に使える
-    / - @messages.each do |message| これは処理速度が遅いやつ！
-    /   = render partial: "message", locals: {message: message}
     = render @messages
   .form
-    / @groupは、どのグループのメッセージとして保存したいのか
-    / @messageはMessageモデルのインスタンス
-    = form_for [@group, @message], html: { class: 'new-message'} do |f|
+    = form_for [@group, @message], html: { class: 'new-message' } do |f|
       .input-box
-        / 保存先カラムはcontent
         = f.text_field :content, class: "input-box__text", placeholder: 'type a message'
         = f.label :image, class: 'input-box__image' do
           = icon('fas', 'image', class: 'icon')

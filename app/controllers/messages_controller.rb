@@ -10,17 +10,15 @@ class MessagesController < ApplicationController
   end
 
   def create
-    # グループに紐付けてmessagesテーブルに新しいレコードを生成
     @message = @group.messages.new(message_params)
-    if @message.save #保存に成功
-      #メッセージ一覧ページにリダイレクト。パスの:group_idには@groupを渡す
-      redirect_to group_messages_path(@group), notice: 'メッセージが送信されました'
-    else #保存に失敗
-      #グループに所属する全てのメッセージ
+    if @message.save 
+      respond_to do |format|
+        format.html { redirect_to group_messages_path, notice: "メッセージを送信しました" }
+        format.json
+      end
+    else 
       @messages = @group.messages.includes(:user)
-      #フラッシュメッセージを表示
       flash.now[:alert] = 'メッセージを入力してください'
-      #indexアクションのviewを再度表示
       render :index
     end
   end
