@@ -103,7 +103,7 @@ $(function(){
       }
     })
     .fail(function(){
-      console.log('error');
+      alert('通信エラーです。メッセージが取得できません。');
     });
   };
   if(document.location.href.match(/\/groups\/\d+\/messages/)) {
