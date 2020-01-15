@@ -79,10 +79,10 @@ $(function(){
   });
 
   //削除ボタンのクリックイベント
-  $('document').on('click','chat-group-user__btn--remove', function(){
-    $('this')
+  $(document).on('click','.chat-group-user__btn--remove', function(){
+    $(this)
       .parent()
       .remove();
   });
-  
+
 });
