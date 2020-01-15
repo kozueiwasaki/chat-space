@@ -1,54 +1,50 @@
 $(function(){
-  
   function buildHTML(message){
     if (message.content && message.image) {
-      //data-idが反映されるようにしている
       var html = `<div class="message" data-message-id=` + message.id + `>` +
-        `<div class="upper-message">` +
-          `<div class="upper-message__user-name">` +
+        `<div class="message-info">` +
+          `<div class="message-info__talker">` +
             message.user_name +
           `</div>` +
-          `<div class="upper-message__date">` +
+          `<div class="message-info__date">` +
             message.created_at +
           `</div>` +
         `</div>` +
-        `<div class="lower-message">` +
-          `<p class="lower-message__content">` +
+        `<div class="message-content">` +
+          `<p class="message-content__text">` +
             message.content +
           `</p>` +
-          `<img src="` + message.image + `" class="lower-message__image" >` +
+          `<img src="` + message.image + `" class="message-content__image" >` +
         `</div>` +
       `</div>`
     } else if (message.content) {
-      //同様に、data-idが反映されるようにしている
       var html = `<div class="message" data-message-id=` + message.id + `>` +
-        `<div class="upper-message">` +
-          `<div class="upper-message__user-name">` +
+        `<div class="message-info">` +
+          `<div class="message-info__talker">` +
             message.user_name +
           `</div>` +
-          `<div class="upper-message__date">` +
+          `<div class="message-info__date">` +
             message.created_at +
           `</div>` +
         `</div>` +
-        `<div class="lower-message">` +
-          `<p class="lower-message__content">` +
+        `<div class="message-content">` +
+          `<p class="message-content__text">` +
             message.content +
           `</p>` +
         `</div>` +
       `</div>`
     } else if (message.image) {
-      //同様に、data-idが反映されるようにしている
       var html = `<div class="message" data-message-id=` + message.id + `>` +
-        `<div class="upper-message">` +
-          `<div class="upper-message__user-name">` +
+        `<div class="message-info">` +
+          `<div class="message-info__talker">` +
             message.user_name +
           `</div>` +
-          `<div class="upper-message__date">` +
+          `<div class="message-info__date">` +
             message.created_at +
           `</div>` +
         `</div>` +
-        `<div class="lower-message">` +
-          `<img src="` + message.image + `" class="lower-message__image" >` +
+        `<div class="message-content">` +
+          `<img src="` + message.image + `" class="message-content__image" >` +
         `</div>` +
       `</div>`
     };
@@ -91,19 +87,26 @@ $(function(){
       data: {id: last_message_id}
     })
     .done(function(messages){
-      //追加するhtmlの入れ物
-      var insertHTML = '';
-      //messagesの中身を順番に取り出し、
-      //htmlに変換したものを入れ物に追加代入
-      $.each(messages, function(i,message) {
-        insertHTML += buildHTML(message)
-      });
-      //messagesの子要素に追加
-      $('.messages').append(insertHTML);
+      if(messages.length !== 0){
+        //追加するhtmlの入れ物
+        var insertHTML = '';
+        //messagesの中身を順番に取り出し、
+        //htmlに変換したものを入れ物に追加代入
+        $.each(messages, function(i,message) {
+          insertHTML += buildHTML(message)
+        });
+        //messagesの子要素に追加
+        $('.messages').append(insertHTML);
+        $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight});
+        $("#new_message")[0].reset();
+        $(".form__submit").prop("disabled", false);
+      }
     })
     .fail(function(){
       console.log('error');
     });
   };
-  setInterval(reloadmessages, 7000);
+  if(document.location.href.match(/\/groups\/\d+\/messages/)) {
+    setInterval(reloadMessages, 7000);
+  }
 });
