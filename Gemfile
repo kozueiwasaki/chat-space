@@ -63,3 +63,8 @@ gem 'devise'
 gem 'carrierwave' #画像をアップロードするために必要は機能を追加するためのgem
 gem 'mini_magick' #画像に対して処理を行うためのgem
 gem 'jquery-rails'
+
+#  本番環境のみ
+group :production  do
+  gem 'unicorn', '5.4.1'
+end
